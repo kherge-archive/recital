@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/kherge/recital.svg?branch=master)](https://travis-ci.org/kherge/recital)
+[![Crates.io](https://img.shields.io/crates/v/recital.svg)](https://crates.io/crates/recital)
 
 Recital
 =======
