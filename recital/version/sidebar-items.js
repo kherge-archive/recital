@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Identifier","Represents an alphanumeric or numberic identifier."]],"struct":[["Version","Represents a semantic version number."]]});

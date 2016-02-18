@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `recital` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, recital">
+
+    <title>recital - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'recital', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>recital</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-0' class='srclink' href='../src/recital/lib.rs.html#1-81' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Create, parse, edit, and compare semantic version numbers.</p>
+
+<p>This library provides you with nearly everything you need to make use of
+version numbers that are compatible with version 2.0.0 of the Semantic
+Versioning specification. The specification is required reading if you do
+not already know the rules and requirements for a semantic version number.
+The specification is pretty small, so it shouldn&#39;t take too long!</p>
+
+<h2 id='specification' class='section-header'><a href='#specification'>Specification</a></h2>
+<p>You can find the specification at <a href="https://semver.org/">semver.org</a>.</p>
+
+<h2 id='usage' class='section-header'><a href='#usage'>Usage</a></h2>
+<p>The library tries to make working with semantic version numbers as simple
+as possible. As a result of this effort, there is a lot of things you can
+do with these numbers. This usage guide will cover high level stuff, so
+you may want to read the documentation for the structures and traits that
+are included for more advanced information.</p>
+
+<h3 id='creating' class='section-header'><a href='#creating'>Creating</a></h3><pre class='rust rust-example-rendered'>
+<span class='kw'>let</span> <span class='ident'>version</span> <span class='op'>=</span> <span class='macro'>version</span><span class='macro'>!</span>(<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>,
+                       <span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>456</span>)],
+                       <span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;def&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>789</span>)]);</pre>
+
+<h3 id='parsing' class='section-header'><a href='#parsing'>Parsing</a></h3><pre class='rust rust-example-rendered'>
+<span class='kw'>let</span> <span class='ident'>version</span>: <span class='ident'>Version</span> <span class='op'>=</span> <span class='string'>&quot;1.2.3-abc.456+def.789&quot;</span>.<span class='ident'>parse</span>().<span class='ident'>unwrap</span>();</pre>
+
+<h3 id='modifying' class='section-header'><a href='#modifying'>Modifying</a></h3><pre class='rust rust-example-rendered'>
+<span class='comment'>// Incrementing numbers.</span>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>version</span> <span class='op'>=</span> <span class='ident'>Version</span>::<span class='ident'>new</span>();
+
+<span class='comment'>// `1.1.1`</span>
+<span class='ident'>version</span>.<span class='ident'>increment_major</span>();
+<span class='ident'>version</span>.<span class='ident'>increment_minor</span>();
+<span class='ident'>version</span>.<span class='ident'>increment_patch</span>();</pre>
+
+<h3 id='comparing' class='section-header'><a href='#comparing'>Comparing</a></h3>
+<p>You can compare versions like you would any number.</p>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>let</span> <span class='ident'>a</span>: <span class='ident'>Version</span> <span class='op'>=</span> <span class='string'>&quot;1.2.3-alpha&quot;</span>.<span class='ident'>parse</span>().<span class='ident'>unwrap</span>();
+<span class='kw'>let</span> <span class='ident'>b</span>: <span class='ident'>Version</span> <span class='op'>=</span> <span class='string'>&quot;1.2.3&quot;</span>.<span class='ident'>parse</span>().<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span>(<span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span>));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>!=</span> <span class='ident'>b</span>);</pre>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use resolve::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../recital/version/index.html' title='recital::version'>version</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='version/index.html'
+                               title='recital::version'>version</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                </table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='macro' href='macro.id!.html'
+                               title='recital::id!'>id!</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='macro' href='macro.version!.html'
+                               title='recital::version!'>version!</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "recital";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
