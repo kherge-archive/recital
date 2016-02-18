@@ -1,0 +1,18 @@
+[package]
+name = "recital"
+version = "0.1.0"
+
+authors = ["Kevin Herrera <kevin@herrera.io>"]
+description = "Create, parse, edit, and compare semantic version numbers."
+
+documentation = "https://kherge.github.io/recital/"
+homepage = "https://github.com/kherge/recital/"
+repository = "https://github.com/kherge/recital.git"
+
+readme = "README.md"
+keywords = ["semver", "semantic", "version", "versioning"]
+license = "MIT"
+
+[dependencies]
+"nom" = "1.2.*"
+
