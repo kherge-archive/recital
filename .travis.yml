@@ -1,9 +1,3 @@
-after_success: bash .travis/gh-pages.sh
-
-env:
-    global:
-        secure: E6JaES26dUEXjXSd+FW/NlFyLZLbson5XEuAnKtiWp25x2cwZl2C3x3LIeS3UzOx/9L2dpqOlrxA8kk26kAuytwW/ObVLtPk+F9t0B/YLUze5QnPvwgk0S+ITacPifflHUhB76IjsDW3nmc88B9g6RctfGpOKMYk4hH+FBqo/tlDDniTou6UR1uqCV4Wk25091uyI1EddMbdIL1/fcfN3jpGve2LfOGdMseeYpF/LBzKYMVWZwD6zayNdJ7kokU+yseSMFDaGXvlDpQU+BIMR+4nlU8BKUiH5Ubs4Yalaz8BUlCMg5m0i82t3j+zuQeeGaI/Wxjuxei32f+avO3WgHzZSIXz/OyjcHUADi6QkO0NRrcqTj0izvp3wMCsrs1YhamLzjDdlfBEezSuVcSNggI7RqaQFZS3jrvSrwNn3nHLh2Bjd+yTamaoRNCWpg+IFV+vmdDu5xRv3acdHgyVVZtMqwMLP1pGzNVeHIyapNhiv45Ycb4ee88qjCLkVgzEE2hG4cF2b6vJA3vR/Bf3AHv59QlPvCv0VzcT4z4ZY7fFW442jG25tzXchqfr96FRc/nLuBSauYMt8/AgkSyEvDCuQBm/Nb2p01yZxEGtf8uzUZR7NPzzIkLEiMoDCqZK3+EqHRzWy/8cyvo3HJ54CgDMo9FgJaiBBnPG87Pgl98=
-
 language: rust
 
 matrix:
@@ -15,5 +9,3 @@ rust:
     - nightly
     - beta
     - stable
-
-script: cargo test --verbose && cargo doc
