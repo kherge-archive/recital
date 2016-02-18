@@ -52,14 +52,29 @@
 //! ### Modifying
 //!
 //! ```
+//! # #[macro_use]
+//! # extern crate recital;
 //! # use recital::Version;
-//! // Incrementing numbers.
+//! # fn main() {
+//! // `0.0.0`
 //! let mut version = Version::new();
 //!
-//! // `1.1.1`
+//! // `1.2.3`
+//! version.major = 1;
+//! version.minor = 2;
+//! version.patch = 3;
+//!
+//! // `1.2.3-abc.456+def.789`
+//! version.pre.push(id!("abc"));
+//! version.pre.push(id!(456));
+//! version.build.push(id!("def"));
+//! version.build.push(id!(789));
+//!
+//! // `2.1.1`
 //! version.increment_major();
 //! version.increment_minor();
 //! version.increment_patch();
+//! # }
 //! ```
 //!
 //! ### Comparing
