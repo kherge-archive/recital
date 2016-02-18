@@ -22,12 +22,19 @@
 //! you may want to read the documentation for the structures and traits that
 //! are included for more advanced information.
 //!
+//! ```
+//! #[macro_use]
+//! extern crate recital;
+//! use recital::Version;
+//! # fn main() {
+//! # }
+//! ```
+//!
 //! ### Creating
 //!
 //! ```
 //! # #[macro_use]
 //! # extern crate recital;
-//! # use recital::*;
 //! # fn main() {
 //! let version = version!(1, 2, 3,
 //!                        vec![id!("abc"), id!(456)],
@@ -38,14 +45,14 @@
 //! ### Parsing
 //!
 //! ```
-//! # use recital::*;
+//! # use recital::Version;
 //! let version: Version = "1.2.3-abc.456+def.789".parse().unwrap();
 //! ```
 //!
 //! ### Modifying
 //!
 //! ```
-//! # use recital::*;
+//! # use recital::Version;
 //! // Incrementing numbers.
 //! let mut version = Version::new();
 //!
@@ -60,7 +67,7 @@
 //! You can compare versions like you would any number.
 //!
 //! ```
-//! # use recital::*;
+//! # use recital::Version;
 //! let a: Version = "1.2.3-alpha".parse().unwrap();
 //! let b: Version = "1.2.3".parse().unwrap();
 //!
