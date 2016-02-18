@@ -46,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/recital/lib.rs.html#1-81' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/recital/lib.rs.html#1-103' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Create, parse, edit, and compare semantic version numbers.</p>
 
 <p>This library provides you with nearly everything you need to make use of
@@ -64,6 +64,10 @@ as possible. As a result of this effort, there is a lot of things you can
 do with these numbers. This usage guide will cover high level stuff, so
 you may want to read the documentation for the structures and traits that
 are included for more advanced information.</p>
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>recital</span>;
+<span class='kw'>use</span> <span class='ident'>recital</span>::<span class='ident'>Version</span>;</pre>
 
 <h3 id='creating' class='section-header'><a href='#creating'>Creating</a></h3><pre class='rust rust-example-rendered'>
 <span class='kw'>let</span> <span class='ident'>version</span> <span class='op'>=</span> <span class='macro'>version</span><span class='macro'>!</span>(<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>,
@@ -74,10 +78,21 @@ are included for more advanced information.</p>
 <span class='kw'>let</span> <span class='ident'>version</span>: <span class='ident'>Version</span> <span class='op'>=</span> <span class='string'>&quot;1.2.3-abc.456+def.789&quot;</span>.<span class='ident'>parse</span>().<span class='ident'>unwrap</span>();</pre>
 
 <h3 id='modifying' class='section-header'><a href='#modifying'>Modifying</a></h3><pre class='rust rust-example-rendered'>
-<span class='comment'>// Incrementing numbers.</span>
+<span class='comment'>// `0.0.0`</span>
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>version</span> <span class='op'>=</span> <span class='ident'>Version</span>::<span class='ident'>new</span>();
 
-<span class='comment'>// `1.1.1`</span>
+<span class='comment'>// `1.2.3`</span>
+<span class='ident'>version</span>.<span class='ident'>major</span> <span class='op'>=</span> <span class='number'>1</span>;
+<span class='ident'>version</span>.<span class='ident'>minor</span> <span class='op'>=</span> <span class='number'>2</span>;
+<span class='ident'>version</span>.<span class='ident'>patch</span> <span class='op'>=</span> <span class='number'>3</span>;
+
+<span class='comment'>// `1.2.3-abc.456+def.789`</span>
+<span class='ident'>version</span>.<span class='ident'>pre</span>.<span class='ident'>push</span>(<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>));
+<span class='ident'>version</span>.<span class='ident'>pre</span>.<span class='ident'>push</span>(<span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>456</span>));
+<span class='ident'>version</span>.<span class='ident'>build</span>.<span class='ident'>push</span>(<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;def&quot;</span>));
+<span class='ident'>version</span>.<span class='ident'>build</span>.<span class='ident'>push</span>(<span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>789</span>));
+
+<span class='comment'>// `2.1.1`</span>
 <span class='ident'>version</span>.<span class='ident'>increment_major</span>();
 <span class='ident'>version</span>.<span class='ident'>increment_minor</span>();
 <span class='ident'>version</span>.<span class='ident'>increment_patch</span>();</pre>
