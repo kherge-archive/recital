@@ -3,3 +3,6 @@
 
 # cargo version resolver
 /Cargo.lock
+
+# vim swap files
+*.swp
