@@ -72,8 +72,10 @@
 #[macro_use]
 extern crate nom;
 
+pub use resolve::*;
 pub use version::*;
 
 mod parser;
 
+pub mod resolve;
 pub mod version;
