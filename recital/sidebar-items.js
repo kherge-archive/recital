@@ -1,1 +1,1 @@
-initSidebarItems({"macro":[["id!",""],["version!",""]],"mod":[["version",""]]});
+initSidebarItems({"macro":[["constraints!","Creates a new set of constraints."],["id!","Creates a new identifier."],["version!","Creates a new version number."]],"mod":[["resolve","Creates and applies constraints for semantic version numbers."],["version","Creates, parses, and manages semantic version numbers."]]});

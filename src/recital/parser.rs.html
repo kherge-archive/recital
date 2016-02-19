@@ -295,16 +295,6 @@
 <span id="252">252</span>
 <span id="253">253</span>
 <span id="254">254</span>
-<span id="255">255</span>
-<span id="256">256</span>
-<span id="257">257</span>
-<span id="258">258</span>
-<span id="259">259</span>
-<span id="260">260</span>
-<span id="261">261</span>
-<span id="262">262</span>
-<span id="263">263</span>
-<span id="264">264</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>nom</span>::{<span class='ident'>digit</span>, <span class='ident'>IResult</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>;
@@ -449,7 +439,6 @@
     <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>build</span>, <span class='ident'>extensions</span>, <span class='ident'>identifiers</span>, <span class='ident'>is_id_char</span>, <span class='ident'>next_number</span>,
                 <span class='ident'>number</span>, <span class='ident'>parse_ids</span>, <span class='ident'>prerelease</span>, <span class='ident'>version</span>};
     <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>super</span>::<span class='op'>*</span>;
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>super</span>::<span class='ident'>Identifier</span>::<span class='op'>*</span>;
 
     <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>parsed</span> {
         (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
@@ -462,25 +451,20 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_build</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>build</span>(<span class='string'>b&quot;+abc.123&quot;</span>),
-                   <span class='macro'>parsed</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_string</span>()),
-                                     <span class='ident'>Number</span>(<span class='number'>123</span>)])));
+                   <span class='macro'>parsed</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>123</span>)])));
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_extensions</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>extensions</span>(<span class='string'>b&quot;-abc.123&quot;</span>),
-                   <span class='macro'>parsed</span><span class='macro'>!</span>((<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_string</span>()), <span class='ident'>Number</span>(<span class='number'>123</span>)]),
-                            <span class='prelude-val'>None</span>)));
+                   <span class='macro'>parsed</span><span class='macro'>!</span>((<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>123</span>)]), <span class='prelude-val'>None</span>)));
 
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>extensions</span>(<span class='string'>b&quot;+def.456&quot;</span>),
-                   <span class='macro'>parsed</span><span class='macro'>!</span>((<span class='prelude-val'>None</span>,
-                            <span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;def&quot;</span>.<span class='ident'>to_string</span>()),
-                                      <span class='ident'>Number</span>(<span class='number'>456</span>)]))));
+                   <span class='macro'>parsed</span><span class='macro'>!</span>((<span class='prelude-val'>None</span>, <span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;def&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>456</span>)]))));
 
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>extensions</span>(<span class='string'>b&quot;-abc.123+def.456&quot;</span>),
-                   <span class='macro'>parsed</span><span class='macro'>!</span>((<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_string</span>()), <span class='ident'>Number</span>(<span class='number'>123</span>)]),
-                            <span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;def&quot;</span>.<span class='ident'>to_string</span>()),
-                                      <span class='ident'>Number</span>(<span class='number'>456</span>)]))));
+                   <span class='macro'>parsed</span><span class='macro'>!</span>((<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>123</span>)]),
+                            <span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;def&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>456</span>)]))));
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -490,17 +474,15 @@
                        <span class='ident'>major</span>: <span class='number'>1</span>,
                        <span class='ident'>minor</span>: <span class='number'>2</span>,
                        <span class='ident'>patch</span>: <span class='number'>3</span>,
-                       <span class='ident'>pre</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_string</span>()), <span class='ident'>Number</span>(<span class='number'>456</span>)],
-                       <span class='ident'>build</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;def&quot;</span>.<span class='ident'>to_string</span>()), <span class='ident'>Number</span>(<span class='number'>789</span>)],
+                       <span class='ident'>pre</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>456</span>)],
+                       <span class='ident'>build</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;def&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>789</span>)],
                    });
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_identifiers</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>identifiers</span>(<span class='string'>b&quot;abc.123.xyz-890&quot;</span>),
-                   <span class='macro'>parsed</span><span class='macro'>!</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_string</span>()),
-                                <span class='ident'>Number</span>(<span class='number'>123</span>),
-                                <span class='ident'>Alpha</span>(<span class='string'>&quot;xyz-890&quot;</span>.<span class='ident'>to_string</span>())]));
+                   <span class='macro'>parsed</span><span class='macro'>!</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>123</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;xyz-890&quot;</span>)]));
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -528,15 +510,13 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_parse_ids</span>() {
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>parse_ids</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;abc&quot;</span>, <span class='string'>&quot;123&quot;</span>]),
-                   <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_string</span>()), <span class='ident'>Number</span>(<span class='number'>123</span>)]);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>parse_ids</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;abc&quot;</span>, <span class='string'>&quot;123&quot;</span>]), <span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>123</span>)]);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_prerelease</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>prerelease</span>(<span class='string'>b&quot;-abc.123&quot;</span>),
-                   <span class='macro'>parsed</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;abc&quot;</span>.<span class='ident'>to_string</span>()),
-                                     <span class='ident'>Number</span>(<span class='number'>123</span>)])));
+                   <span class='macro'>parsed</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;abc&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>123</span>)])));
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -546,7 +526,7 @@
                        <span class='ident'>major</span>: <span class='number'>12</span>,
                        <span class='ident'>minor</span>: <span class='number'>34</span>,
                        <span class='ident'>patch</span>: <span class='number'>56</span>,
-                       <span class='ident'>pre</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;ab&quot;</span>.<span class='ident'>to_string</span>()), <span class='ident'>Number</span>(<span class='number'>78</span>)],
+                       <span class='ident'>pre</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;ab&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>78</span>)],
                        <span class='ident'>build</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>(),
                    }));
 
@@ -556,7 +536,7 @@
                        <span class='ident'>minor</span>: <span class='number'>34</span>,
                        <span class='ident'>patch</span>: <span class='number'>56</span>,
                        <span class='ident'>pre</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>(),
-                       <span class='ident'>build</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;cd&quot;</span>.<span class='ident'>to_string</span>()), <span class='ident'>Number</span>(<span class='number'>90</span>)],
+                       <span class='ident'>build</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;cd&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>90</span>)],
                    }));
 
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>version</span>(<span class='string'>b&quot;12.34.56-ab.78+cd.90&quot;</span>),
@@ -564,8 +544,8 @@
                        <span class='ident'>major</span>: <span class='number'>12</span>,
                        <span class='ident'>minor</span>: <span class='number'>34</span>,
                        <span class='ident'>patch</span>: <span class='number'>56</span>,
-                       <span class='ident'>pre</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;ab&quot;</span>.<span class='ident'>to_string</span>()), <span class='ident'>Number</span>(<span class='number'>78</span>)],
-                       <span class='ident'>build</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Alpha</span>(<span class='string'>&quot;cd&quot;</span>.<span class='ident'>to_string</span>()), <span class='ident'>Number</span>(<span class='number'>90</span>)],
+                       <span class='ident'>pre</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;ab&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>78</span>)],
+                       <span class='ident'>build</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='macro'>id</span><span class='macro'>!</span>(<span class='string'>&quot;cd&quot;</span>), <span class='macro'>id</span><span class='macro'>!</span>(<span class='number'>90</span>)],
                    }));
     }
 

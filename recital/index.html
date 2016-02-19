@@ -46,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/recital/lib.rs.html#1-103' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/recital/lib.rs.html#1-106' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Create, parse, edit, and compare semantic version numbers.</p>
 
 <p>This library provides you with nearly everything you need to make use of
@@ -107,22 +107,42 @@ are included for more advanced information.</p>
 <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span>(<span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span>));
 <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>!=</span> <span class='ident'>b</span>);</pre>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use resolve::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../recital/version/index.html' title='recital::version'>version</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>pub use <a class='mod' href='../recital/resolve/index.html' title='recital::resolve'>resolve</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../recital/version/index.html' title='recital::version'>version</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='resolve/index.html'
+                               title='recital::resolve'>resolve</a></td>
+                        <td class='docblock short'>
+                             <p>Creates and applies constraints for semantic version numbers.</p>
+
+                        </td>
+                    </tr>
+                
                     <tr class=' module-item'>
                         <td><a class='mod' href='version/index.html'
                                title='recital::version'>version</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Creates, parses, and manages semantic version numbers.</p>
+
                         </td>
                     </tr>
                 </table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
 <table>
                     <tr class=' module-item'>
+                        <td><a class='macro' href='macro.constraints!.html'
+                               title='recital::constraints!'>constraints!</a></td>
+                        <td class='docblock short'>
+                             <p>Creates a new set of constraints.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='macro' href='macro.id!.html'
                                title='recital::id!'>id!</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Creates a new identifier.</p>
+
                         </td>
                     </tr>
                 
@@ -130,7 +150,8 @@ are included for more advanced information.</p>
                         <td><a class='macro' href='macro.version!.html'
                                title='recital::version!'>version!</a></td>
                         <td class='docblock short'>
-                             
+                             <p>Creates a new version number.</p>
+
                         </td>
                     </tr>
                 </table></section>

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Constraints","Represents a set of constraints."],["Operation","A version number constraint as an equality and inequality check."]],"fn":[["resolve","Resolves a set of constraints against a pool of version numbers."]],"trait":[["Constraint","Defines how a constraint must be implemented."]]});
