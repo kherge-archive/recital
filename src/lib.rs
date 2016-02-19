@@ -97,7 +97,9 @@ extern crate nom;
 pub use resolve::*;
 pub use version::*;
 
+#[macro_use]
+pub mod version;
+
 mod parser;
 
 pub mod resolve;
-pub mod version;
