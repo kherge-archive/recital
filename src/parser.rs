@@ -141,7 +141,6 @@ mod test {
     use super::{build, extensions, identifiers, is_id_char, next_number,
                 number, parse_ids, prerelease, version};
     use super::super::*;
-    use super::super::Identifier::*;
 
     macro_rules! parsed {
         ($a:expr) => {
@@ -154,25 +153,20 @@ mod test {
     #[test]
     fn test_build() {
         assert_eq!(build(b"+abc.123"),
-                   parsed!(Some(vec![Alpha("abc".to_string()),
-                                     Number(123)])));
+                   parsed!(Some(vec![id!("abc"), id!(123)])));
     }
 
     #[test]
     fn test_extensions() {
         assert_eq!(extensions(b"-abc.123"),
-                   parsed!((Some(vec![Alpha("abc".to_string()), Number(123)]),
-                            None)));
+                   parsed!((Some(vec![id!("abc"), id!(123)]), None)));
 
         assert_eq!(extensions(b"+def.456"),
-                   parsed!((None,
-                            Some(vec![Alpha("def".to_string()),
-                                      Number(456)]))));
+                   parsed!((None, Some(vec![id!("def"), id!(456)]))));
 
         assert_eq!(extensions(b"-abc.123+def.456"),
-                   parsed!((Some(vec![Alpha("abc".to_string()), Number(123)]),
-                            Some(vec![Alpha("def".to_string()),
-                                      Number(456)]))));
+                   parsed!((Some(vec![id!("abc"), id!(123)]),
+                            Some(vec![id!("def"), id!(456)]))));
     }
 
     #[test]
@@ -182,17 +176,15 @@ mod test {
                        major: 1,
                        minor: 2,
                        patch: 3,
-                       pre: vec![Alpha("abc".to_string()), Number(456)],
-                       build: vec![Alpha("def".to_string()), Number(789)],
+                       pre: vec![id!("abc"), id!(456)],
+                       build: vec![id!("def"), id!(789)],
                    });
     }
 
     #[test]
     fn test_identifiers() {
         assert_eq!(identifiers(b"abc.123.xyz-890"),
-                   parsed!(vec![Alpha("abc".to_string()),
-                                Number(123),
-                                Alpha("xyz-890".to_string())]));
+                   parsed!(vec![id!("abc"), id!(123), id!("xyz-890")]));
     }
 
     #[test]
@@ -220,15 +212,13 @@ mod test {
 
     #[test]
     fn test_parse_ids() {
-        assert_eq!(parse_ids(vec!["abc", "123"]),
-                   vec![Alpha("abc".to_string()), Number(123)]);
+        assert_eq!(parse_ids(vec!["abc", "123"]), vec![id!("abc"), id!(123)]);
     }
 
     #[test]
     fn test_prerelease() {
         assert_eq!(prerelease(b"-abc.123"),
-                   parsed!(Some(vec![Alpha("abc".to_string()),
-                                     Number(123)])));
+                   parsed!(Some(vec![id!("abc"), id!(123)])));
     }
 
     #[test]
@@ -238,7 +228,7 @@ mod test {
                        major: 12,
                        minor: 34,
                        patch: 56,
-                       pre: vec![Alpha("ab".to_string()), Number(78)],
+                       pre: vec![id!("ab"), id!(78)],
                        build: Vec::new(),
                    }));
 
@@ -248,7 +238,7 @@ mod test {
                        minor: 34,
                        patch: 56,
                        pre: Vec::new(),
-                       build: vec![Alpha("cd".to_string()), Number(90)],
+                       build: vec![id!("cd"), id!(90)],
                    }));
 
         assert_eq!(version(b"12.34.56-ab.78+cd.90"),
@@ -256,8 +246,8 @@ mod test {
                        major: 12,
                        minor: 34,
                        patch: 56,
-                       pre: vec![Alpha("ab".to_string()), Number(78)],
-                       build: vec![Alpha("cd".to_string()), Number(90)],
+                       pre: vec![id!("ab"), id!(78)],
+                       build: vec![id!("cd"), id!(90)],
                    }));
     }
 
