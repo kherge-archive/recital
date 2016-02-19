@@ -9,6 +9,20 @@ Create, parse, edit, and compare semantic version numbers.
 Usage
 -----
 
+```rust
+#[macro_use]
+extern crate recital;
+
+fn main() {
+    let installed: Version = "1.0.0-beta".parse();
+    let published: Version = "1.3.4".parse();
+
+    if published > installed {
+        println("A new version is available: {}", published);
+    }
+}
+```
+
 Please refer to [the documentation](https://kherge.github.io/recital/) for the crate.
 
 Installation
@@ -16,7 +30,7 @@ Installation
 
 Add it to your list of dependencies.
 
-    "recital" = "?.?.?"
+    "recital" = "0.2.0"
 
 License
 -------
