@@ -1,12 +1,90 @@
+//! Creates and applies constraints for semantic version numbers.
+//!
+//! The **resolve** module provides you with a default set of constraints,
+//! as well as an `enum` that will allow you to chain multiple constraints
+//! together.
+//!
+//! It can be as simple as
+//!
+//! ```
+//! # #[macro_use]
+//! # extern crate recital;
+//! # use recital::Constraint;
+//! # use recital::Operation::*;
+//! # fn main() {
+//! if GreaterThan(version!(1, 0, 0)).allows(&version!(1, 0, 0)) {
+//!     // ... allowed ...
+//! }
+//! # }
+//! ```
+//!
+//! or as complicated as
+//!
+//! ```
+//! # #[macro_use]
+//! # extern crate recital;
+//! # use recital::Constraint;
+//! # use recital::Operation::*;
+//! # use recital::resolve;
+//! # fn main() {
+//! let constraints = constraints!(Or,
+//!                                constraints!(And,
+//!                                             GreaterThanOrEqualTo(version!(1, 0, 0)),
+//!                                             LessThan(version!(1, 5, 4))),
+//!                                constraints!(And,
+//!                                             GreaterThan(version!(1, 5, 4)),
+//!                                             LessThan(version!(2, 0, 0))));
+//!
+//! let pool = vec![version!(1, 0, 0),
+//!                 version!(1, 1, 0),
+//!                 version!(1, 2, 0),
+//!                 version!(1, 2, 1),
+//!                 version!(1, 3, 0),
+//!                 version!(1, 4, 0),
+//!                 version!(2, 0, 0),
+//!                 version!(2, 0, 1),
+//!                 version!(2, 1, 0)];
+//!
+//! let allowed = resolve(&pool, &constraints);
+//! # }
+//! ```
+//!
+//! As you can probably tell, the macros make this easy and concise.
 use super::Version;
 
 /// Defines how a constraint must be implemented.
 pub trait Constraint {
-    /// Checks if the given version number is allowed by this constraint.
+    /// Checks if the given version number satisifies this constraint.
     fn allows(&self, version: &Version) -> bool;
 }
 
 /// Represents a set of constraints.
+///
+/// The following example will allow any version number from `1.0.0` to less
+/// than `2.0.0` while also skipping `1.4.5`, which we can say to be a buggy
+/// release.
+///
+/// ```
+/// # #[macro_use]
+/// # extern crate recital;
+/// use recital::Constraint;
+/// use recital::Constraints::*;
+/// use recital::Operation::*;
+///
+/// # fn main() {
+/// let set = And(vec![Box::new(GreaterThanOrEqualTo(version!(1, 0, 0))),
+///                    Box::new(ExactlyNot(version!(1, 4, 5))),
+///                    Box::new(LessThan(version!(2, 0, 0)))]);
+///
+/// if set.allows(&version!(1, 4, 6)) {
+///     // ... allowed ...
+/// }
+///
+/// if !set.allows(&version!(1, 4, 5)) {
+///     // ... not allowed ...
+/// }
+/// # }
+/// ```
 pub enum Constraints {
     /// All constraints must be satisified.
     And(Vec<Box<Constraint>>),
@@ -83,6 +161,33 @@ macro_rules! constraints {
 }
 
 /// A version number constraint as an equality and inequality check.
+///
+/// The following example will create a very simple constraint based on an
+/// equality/inequality check that will allow any version number equal to
+/// or above `1.3.9`.
+///
+/// ```
+/// # #[macro_use]
+/// # extern crate recital;
+/// use recital::Constraint;
+/// use recital::Operation::*;
+/// # fn main() {
+/// let operation = GreaterThanOrEqualTo(version!(1, 3, 9));
+///
+/// if operation.allows(&version!(1, 5, 6)) {
+///     // ... allowed ...
+/// }
+///
+/// if !operation.allows(&version!(1, 2, 1)) {
+///     // ... not allowed ...
+/// }
+/// # }
+/// ```
+///
+/// This enum is not intended to be used by itself. You would be better off
+/// doing direct comparisons (e.g. `a > b`). You are expected to use multiple
+/// instances of this enum as a set of constraints. Please see the
+/// `Constraints` enum documentation.
 pub enum Operation {
     /// Match the exact version number. (=)
     Exactly(Version),

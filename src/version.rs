@@ -1,3 +1,34 @@
+//! Creates, parses, and manages semantic version numbers.
+//!
+//! The **version** module provides you with a set of structs, enums, and
+//! macros to create a representation of a semantic version number. You have
+//! the option of using the structs and enums directly
+//!
+//! ```
+//! use recital::{Identifier, Version};
+//!
+//! let version = Version {
+//!     major: 1,
+//!     minor: 2,
+//!     patch: 3,
+//!     pre: vec![Identifier::Alpha("abc".to_string()),
+//!               Identifier::Number(456)],
+//!     build: vec![Identifier::Alpha("def".to_string()),
+//!                 Identifier::Number(789)],
+//! };
+//! ```
+//!
+//! or use the macros
+//!
+//! ```
+//! # #[macro_use]
+//! # extern crate recital;
+//! # fn main() {
+//! let version = version!(1, 2, 3,
+//!                        vec![id!("abc"), id!(456)],
+//!                        vec![id!("def"), id!(789)]);
+//! # }
+//! ```
 use Identifier::{Alpha, Number};
 use std::cmp::Ordering;
 use std::fmt::{self, Display};
