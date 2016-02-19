@@ -80,6 +80,24 @@ from_n!(u16);
 from_n!(u32);
 from_n!(u64);
 
+/// Creates a new identifier.
+///
+/// ```
+/// # #[macro_use]
+/// # extern crate recital;
+/// # fn main() {
+/// let a = id!("abc");
+/// let b = id!(123);
+/// # }
+/// ```
+///
+/// is the same as
+///
+/// ```
+/// # use recital::Identifier;
+/// let a = Identifier::Alpha("abc".to_string());
+/// let b = Identifier::Number(123);
+/// ```
 #[macro_export]
 macro_rules! id {
     ($a:expr) => {{ $crate::Identifier::from($a) }}
@@ -300,6 +318,51 @@ impl Version {
     }
 }
 
+/// Creates a new version number.
+///
+/// ```
+/// # #[macro_use]
+/// # extern crate recital;
+/// # fn main() {
+/// let a = version!(1, 2, 3);
+/// let b = version!(1, 2, 3, vec![id!("abc"), id!(456)]);
+/// let c = version!(1, 2, 3,
+///                  vec![id!("abc"), id!(456)],
+///                  vec![id!("def"), id!(789)]);
+/// # }
+/// ```
+///
+/// is the same as
+///
+/// ```
+/// # #[macro_use]
+/// # extern crate recital;
+/// # use recital::Version;
+/// # fn main() {
+/// let a = Version {
+///     major: 1,
+///     minor: 2,
+///     patch: 3,
+///     ..
+///     Default::default()
+/// };
+/// let b = Version {
+///     major: 1,
+///     minor: 2,
+///     patch: 3,
+///     pre: vec![id!("abc"), id!(456)],
+///     ..
+///     Default::default()
+/// };
+/// let c = Version {
+///     major: 1,
+///     minor: 2,
+///     patch: 3,
+///     pre: vec![id!("abc"), id!(456)],
+///     build: vec![id!("def"), id!(789)],
+/// };
+/// # }
+/// ```
 #[macro_export]
 macro_rules! version {
     ($a:expr, $b:expr, $c:expr) => {
