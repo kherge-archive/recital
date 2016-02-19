@@ -102,4 +102,5 @@ pub mod version;
 
 mod parser;
 
+#[macro_use]
 pub mod resolve;
