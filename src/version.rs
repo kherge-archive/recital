@@ -268,10 +268,8 @@ impl Ord for Version {
 
 impl PartialEq for Version {
     fn eq(&self, other: &Version) -> bool {
-        self.major == other.major
-            && self.minor == other.minor
-            && self.patch == other.patch
-            && self.pre == other.pre
+        self.major == other.major && self.minor == other.minor && self.patch == other.patch &&
+        self.pre == other.pre
     }
 }
 
@@ -534,12 +532,9 @@ mod tests {
             }
         }
 
-        compare!(vec![version!(1, 0, 0),
-                      version!(2, 0, 0),
-                      version!(2, 1, 0)]);
+        compare!(vec![version!(1, 0, 0), version!(2, 0, 0), version!(2, 1, 0)]);
 
-        compare!(vec![version!(1, 0, 0, vec![id!("alpha")]),
-                      version!(1, 0, 0)]);
+        compare!(vec![version!(1, 0, 0, vec![id!("alpha")]), version!(1, 0, 0)]);
 
         compare!(vec![version!(1, 0, 0, vec![id!("alpha")]),
                       version!(1, 0, 0, vec![id!("alpha"), id!(1)]),

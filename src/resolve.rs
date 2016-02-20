@@ -90,7 +90,7 @@ pub trait Constraint {
 pub enum Constraints {
     /// All constraints must be satisified.
     And(Vec<Box<Constraint>>),
-    
+
     /// At least one constraint must be satisified.
     Or(Vec<Box<Constraint>>),
 }
@@ -106,7 +106,7 @@ impl Constraint for Constraints {
                 }
 
                 true
-            },
+            }
 
             Constraints::Or(ref constraints) => {
                 for constraint in constraints {
@@ -116,7 +116,7 @@ impl Constraint for Constraints {
                 }
 
                 false
-            },
+            }
         }
     }
 }
@@ -292,11 +292,9 @@ mod tests {
 
     #[test]
     fn test_greater_than_or_equal_to() {
-        assert!(GreaterThanOrEqualTo(version!(1, 2, 3))
-                .allows(&version!(4, 5, 6)));
+        assert!(GreaterThanOrEqualTo(version!(1, 2, 3)).allows(&version!(4, 5, 6)));
 
-        assert!(GreaterThanOrEqualTo(version!(1, 2, 3))
-                .allows(&version!(1, 2, 3)));
+        assert!(GreaterThanOrEqualTo(version!(1, 2, 3)).allows(&version!(1, 2, 3)));
     }
 
     #[test]
@@ -306,11 +304,9 @@ mod tests {
 
     #[test]
     fn test_less_than_or_equal_to() {
-        assert!(LessThanOrEqualTo(version!(1, 2, 3))
-                .allows(&version!(1, 0, 0)));
+        assert!(LessThanOrEqualTo(version!(1, 2, 3)).allows(&version!(1, 0, 0)));
 
-        assert!(LessThanOrEqualTo(version!(1, 2, 3))
-                .allows(&version!(1, 2, 3)));
+        assert!(LessThanOrEqualTo(version!(1, 2, 3)).allows(&version!(1, 2, 3)));
     }
 
     #[test]
@@ -325,9 +321,7 @@ mod tests {
 
     #[test]
     fn test_or() {
-        let a = constraints!(Or,
-                             Exactly(version!(1, 1, 0)),
-                             Exactly(version!(1, 2, 0)));
+        let a = constraints!(Or, Exactly(version!(1, 1, 0)), Exactly(version!(1, 2, 0)));
 
         assert!(a.allows(&version!(1, 1, 0)));
         assert!(a.allows(&version!(1, 2, 0)));
@@ -366,9 +360,7 @@ mod tests {
                      version!(2, 1, 0)];
 
         assert_eq!(resolve(&v, &c),
-                   vec![version!(1, 3, 0),
-                        version!(1, 3, 1),
-                        version!(1, 4, 0)]);
+                   vec![version!(1, 3, 0), version!(1, 3, 1), version!(1, 4, 0)]);
     }
 
 }

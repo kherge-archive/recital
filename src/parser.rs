@@ -138,8 +138,8 @@ impl str::FromStr for Version {
 mod test {
 
     use nom::IResult;
-    use super::{build, extensions, identifiers, is_id_char, next_number,
-                number, parse_ids, prerelease, version};
+    use super::{build, extensions, identifiers, is_id_char, next_number, number, parse_ids,
+                prerelease, version};
     use super::super::version::Version;
 
     macro_rules! parsed {
