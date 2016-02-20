@@ -268,8 +268,10 @@ impl Ord for Version {
 
 impl PartialEq for Version {
     fn eq(&self, other: &Version) -> bool {
-        self.major == other.major && self.minor == other.minor && self.patch == other.patch &&
-        self.pre == other.pre
+        self.major == other.major
+            && self.minor == other.minor
+            && self.patch == other.patch
+            && self.pre == other.pre
     }
 }
 
