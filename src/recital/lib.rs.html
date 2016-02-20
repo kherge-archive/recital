@@ -147,6 +147,13 @@
 <span id="104">104</span>
 <span id="105">105</span>
 <span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Create, parse, edit, and compare semantic version numbers.</span>
 <span class='doccomment'>//!</span>
@@ -175,7 +182,8 @@
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//! #[macro_use]</span>
 <span class='doccomment'>//! extern crate recital;</span>
-<span class='doccomment'>//! use recital::Version;</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! use recital::prelude::*;</span>
 <span class='doccomment'>//! # fn main() {</span>
 <span class='doccomment'>//! # }</span>
 <span class='doccomment'>//! ```</span>
@@ -195,7 +203,7 @@
 <span class='doccomment'>//! ### Parsing</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! ```</span>
-<span class='doccomment'>//! # use recital::Version;</span>
+<span class='doccomment'>//! # use recital::version::Version;</span>
 <span class='doccomment'>//! let version: Version = &quot;1.2.3-abc.456+def.789&quot;.parse().unwrap();</span>
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//!</span>
@@ -204,7 +212,7 @@
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//! # #[macro_use]</span>
 <span class='doccomment'>//! # extern crate recital;</span>
-<span class='doccomment'>//! # use recital::Version;</span>
+<span class='doccomment'>//! # use recital::version::Version;</span>
 <span class='doccomment'>//! # fn main() {</span>
 <span class='doccomment'>//! // `0.0.0`</span>
 <span class='doccomment'>//! let mut version = Version::new();</span>
@@ -232,7 +240,7 @@
 <span class='doccomment'>//! You can compare versions like you would any number.</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! ```</span>
-<span class='doccomment'>//! # use recital::Version;</span>
+<span class='doccomment'>//! # use recital::version::Version;</span>
 <span class='doccomment'>//! let a: Version = &quot;1.2.3-alpha&quot;.parse().unwrap();</span>
 <span class='doccomment'>//! let b: Version = &quot;1.2.3&quot;.parse().unwrap();</span>
 <span class='doccomment'>//!</span>
@@ -244,14 +252,20 @@
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>nom</span>;
 
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>resolve</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>version</span>::<span class='op'>*</span>;
-
+<span class='comment'>// Version number management.</span>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>version</span>;
 
+<span class='comment'>// Version string parser.</span>
 <span class='kw'>mod</span> <span class='ident'>parser</span>;
 
+<span class='doccomment'>/// Re-exports submodules for glob imports.</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>prelude</span> {
+    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>resolve</span>::{<span class='ident'>Constraint</span>, <span class='ident'>Constraints</span>, <span class='ident'>Operation</span>, <span class='ident'>resolve</span>};
+    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>version</span>::{<span class='ident'>Identifier</span>, <span class='ident'>Version</span>};
+}
+
+<span class='comment'>// Version constraints management.</span>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>resolve</span>;
 </pre>

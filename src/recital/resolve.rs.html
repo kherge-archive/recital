@@ -409,6 +409,12 @@
 <span id="366">366</span>
 <span id="367">367</span>
 <span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Creates and applies constraints for semantic version numbers.</span>
 <span class='doccomment'>//!</span>
@@ -421,8 +427,9 @@
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//! # #[macro_use]</span>
 <span class='doccomment'>//! # extern crate recital;</span>
-<span class='doccomment'>//! # use recital::Constraint;</span>
-<span class='doccomment'>//! # use recital::Operation::*;</span>
+<span class='doccomment'>//! use recital::resolve::Constraint;</span>
+<span class='doccomment'>//! use recital::resolve::Operation::GreaterThan;</span>
+<span class='doccomment'>//!</span>
 <span class='doccomment'>//! # fn main() {</span>
 <span class='doccomment'>//! if GreaterThan(version!(1, 0, 0)).allows(&amp;version!(1, 0, 0)) {</span>
 <span class='doccomment'>//!     // ... allowed ...</span>
@@ -435,9 +442,10 @@
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//! # #[macro_use]</span>
 <span class='doccomment'>//! # extern crate recital;</span>
-<span class='doccomment'>//! # use recital::Constraint;</span>
-<span class='doccomment'>//! # use recital::Operation::*;</span>
-<span class='doccomment'>//! # use recital::resolve;</span>
+<span class='doccomment'>//! use recital::resolve::Constraint;</span>
+<span class='doccomment'>//! use recital::resolve::Operation::*;</span>
+<span class='doccomment'>//! use recital::resolve::resolve;</span>
+<span class='doccomment'>//!</span>
 <span class='doccomment'>//! # fn main() {</span>
 <span class='doccomment'>//! let constraints = constraints!(Or,</span>
 <span class='doccomment'>//!                                constraints!(And,</span>
@@ -462,7 +470,7 @@
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! As you can probably tell, the macros make this easy and concise.</span>
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>Version</span>;
+<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>version</span>::<span class='ident'>Version</span>;
 
 <span class='doccomment'>/// Defines how a constraint must be implemented.</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Constraint</span> {
@@ -479,9 +487,9 @@
 <span class='doccomment'>/// ```</span>
 <span class='doccomment'>/// # #[macro_use]</span>
 <span class='doccomment'>/// # extern crate recital;</span>
-<span class='doccomment'>/// use recital::Constraint;</span>
-<span class='doccomment'>/// use recital::Constraints::*;</span>
-<span class='doccomment'>/// use recital::Operation::*;</span>
+<span class='doccomment'>/// use recital::resolve::Constraint;</span>
+<span class='doccomment'>/// use recital::resolve::Constraints::And;</span>
+<span class='doccomment'>/// use recital::resolve::Operation::*;</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// # fn main() {</span>
 <span class='doccomment'>/// let set = And(vec![Box::new(GreaterThanOrEqualTo(version!(1, 0, 0))),</span>
@@ -536,8 +544,9 @@
 <span class='doccomment'>/// ```</span>
 <span class='doccomment'>/// # #[macro_use]</span>
 <span class='doccomment'>/// # extern crate recital;</span>
-<span class='doccomment'>/// # use recital::Constraints::*;</span>
-<span class='doccomment'>/// # use recital::Operation::*;</span>
+<span class='doccomment'>/// use recital::resolve::Constraints::And;</span>
+<span class='doccomment'>/// use recital::resolve::Operation::Exactly;</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// # fn main() {</span>
 <span class='doccomment'>/// let constraints = constraints!(And,</span>
 <span class='doccomment'>///                                Exactly(version!(1, 2, 3)),</span>
@@ -550,8 +559,9 @@
 <span class='doccomment'>/// ```</span>
 <span class='doccomment'>/// # #[macro_use]</span>
 <span class='doccomment'>/// # extern crate recital;</span>
-<span class='doccomment'>/// # use recital::Constraints::*;</span>
-<span class='doccomment'>/// # use recital::Operation::*;</span>
+<span class='doccomment'>/// use recital::resolve::Constraints::And;</span>
+<span class='doccomment'>/// use recital::resolve::Operation::Exactly;</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// # fn main() {</span>
 <span class='doccomment'>/// let constraints = And(vec![Box::new(Exactly(version!(1, 2, 3))),</span>
 <span class='doccomment'>///                            Box::new(Exactly(version!(4, 5, 6)))]);</span>
@@ -561,13 +571,13 @@
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>constraints</span> {
     (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>:<span class='ident'>ident</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>:<span class='ident'>expr</span>), <span class='op'>*</span>) <span class='op'>=&gt;</span> {
         {
-            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>constraints</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>Constraint</span><span class='op'>&gt;&gt;</span>::<span class='ident'>new</span>();
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>constraints</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>resolve</span>::<span class='ident'>Constraint</span><span class='op'>&gt;&gt;</span>::<span class='ident'>new</span>();
 
             $(
                 <span class='ident'>constraints</span>.<span class='ident'>push</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>));
             )<span class='op'>*</span>
 
-            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>Constraints</span>::<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>(<span class='ident'>constraints</span>)
+            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>resolve</span>::<span class='ident'>Constraints</span>::<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>(<span class='ident'>constraints</span>)
         }
     }
 }
@@ -581,8 +591,9 @@
 <span class='doccomment'>/// ```</span>
 <span class='doccomment'>/// # #[macro_use]</span>
 <span class='doccomment'>/// # extern crate recital;</span>
-<span class='doccomment'>/// use recital::Constraint;</span>
-<span class='doccomment'>/// use recital::Operation::*;</span>
+<span class='doccomment'>/// use recital::resolve::Constraint;</span>
+<span class='doccomment'>/// use recital::resolve::Operation::GreaterThanOrEqualTo;</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// # fn main() {</span>
 <span class='doccomment'>/// let operation = GreaterThanOrEqualTo(version!(1, 3, 9));</span>
 <span class='doccomment'>///</span>
@@ -641,9 +652,10 @@
 <span class='doccomment'>/// ```</span>
 <span class='doccomment'>/// # #[macro_use]</span>
 <span class='doccomment'>/// # extern crate recital;</span>
-<span class='doccomment'>/// # use recital::Constraints::*;</span>
-<span class='doccomment'>/// # use recital::Operation::*;</span>
-<span class='doccomment'>/// # use recital::resolve;</span>
+<span class='doccomment'>/// use recital::resolve::Constraints::And;</span>
+<span class='doccomment'>/// use recital::resolve::Operation::*;</span>
+<span class='doccomment'>/// use recital::resolve::resolve;</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// # fn main() {</span>
 <span class='doccomment'>/// let constraints = constraints!(And,</span>
 <span class='doccomment'>///                                GreaterThan(version!(1, 0, 1)),</span>

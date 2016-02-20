@@ -688,6 +688,9 @@
 <span id="645">645</span>
 <span id="646">646</span>
 <span id="647">647</span>
+<span id="648">648</span>
+<span id="649">649</span>
+<span id="650">650</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Creates, parses, and manages semantic version numbers.</span>
 <span class='doccomment'>//!</span>
@@ -696,7 +699,7 @@
 <span class='doccomment'>//! the option of using the structs and enums directly</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! ```</span>
-<span class='doccomment'>//! use recital::{Identifier, Version};</span>
+<span class='doccomment'>//! use recital::version::{Identifier, Version};</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! let version = Version {</span>
 <span class='doccomment'>//!     major: 1,</span>
@@ -720,7 +723,7 @@
 <span class='doccomment'>//!                        vec![id!(&quot;def&quot;), id!(789)]);</span>
 <span class='doccomment'>//! # }</span>
 <span class='doccomment'>//! ```</span>
-<span class='kw'>use</span> <span class='ident'>Identifier</span>::{<span class='ident'>Alpha</span>, <span class='ident'>Number</span>};
+<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>Identifier</span>::{<span class='ident'>Alpha</span>, <span class='ident'>Number</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>::{<span class='self'>self</span>, <span class='ident'>Display</span>};
 
@@ -816,13 +819,14 @@
 <span class='doccomment'>/// is the same as</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # use recital::Identifier;</span>
+<span class='doccomment'>/// use recital::version::Identifier;</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// let a = Identifier::Alpha(&quot;abc&quot;.to_string());</span>
 <span class='doccomment'>/// let b = Identifier::Number(123);</span>
 <span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>id</span> {
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>Identifier</span>::<span class='ident'>from</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>) }}
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {{ <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>version</span>::<span class='ident'>Identifier</span>::<span class='ident'>from</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>) }}
 }
 
 <span class='doccomment'>/// Represents a semantic version number.</span>
@@ -878,7 +882,8 @@
 <span class='doccomment'>/// Sets the default values for a `Version`.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # use recital::version::Version;</span>
+<span class='doccomment'>/// use recital::version::Version;</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// let defaults = Version {</span>
 <span class='doccomment'>///     major: 0,</span>
 <span class='doccomment'>///     minor: 0,</span>
@@ -1059,7 +1064,8 @@
 <span class='doccomment'>/// ```</span>
 <span class='doccomment'>/// # #[macro_use]</span>
 <span class='doccomment'>/// # extern crate recital;</span>
-<span class='doccomment'>/// # use recital::Version;</span>
+<span class='doccomment'>/// use recital::version::Version;</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// # fn main() {</span>
 <span class='doccomment'>/// let a = Version {</span>
 <span class='doccomment'>///     major: 1,</span>
@@ -1089,7 +1095,7 @@
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>version</span> {
     (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
         {
-            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>Version</span> {
+            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>version</span>::<span class='ident'>Version</span> {
                 <span class='ident'>major</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>,
                 <span class='ident'>minor</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>,
                 <span class='ident'>patch</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c</span>,
@@ -1101,7 +1107,7 @@
 
     (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>d</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
         {
-            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>Version</span> {
+            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>version</span>::<span class='ident'>Version</span> {
                 <span class='ident'>major</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>,
                 <span class='ident'>minor</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>,
                 <span class='ident'>patch</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c</span>,
@@ -1114,7 +1120,7 @@
 
     (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>d</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
         {
-            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>Version</span> {
+            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>version</span>::<span class='ident'>Version</span> {
                 <span class='ident'>major</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>,
                 <span class='ident'>minor</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>,
                 <span class='ident'>patch</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>c</span>,

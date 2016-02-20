@@ -46,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-463' class='srclink' href='../../src/recital/resolve.rs.html#191-209' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-465' class='srclink' href='../../src/recital/resolve.rs.html#196-214' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum Operation {
     Exactly(<a class='struct' href='../../recital/version/struct.Version.html' title='recital::version::Version'>Version</a>),
     ExactlyNot(<a class='struct' href='../../recital/version/struct.Version.html' title='recital::version::Version'>Version</a>),
@@ -60,8 +60,9 @@
 equality/inequality check that will allow any version number equal to
 or above <code>1.3.9</code>.</p>
 <pre class='rust rust-example-rendered'>
-<span class='kw'>use</span> <span class='ident'>recital</span>::<span class='ident'>Constraint</span>;
-<span class='kw'>use</span> <span class='ident'>recital</span>::<span class='ident'>Operation</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>recital</span>::<span class='ident'>resolve</span>::<span class='ident'>Constraint</span>;
+<span class='kw'>use</span> <span class='ident'>recital</span>::<span class='ident'>resolve</span>::<span class='ident'>Operation</span>::<span class='ident'>GreaterThanOrEqualTo</span>;
+
 <span class='kw'>let</span> <span class='ident'>operation</span> <span class='op'>=</span> <span class='ident'>GreaterThanOrEqualTo</span>(<span class='macro'>version</span><span class='macro'>!</span>(<span class='number'>1</span>, <span class='number'>3</span>, <span class='number'>9</span>));
 
 <span class='kw'>if</span> <span class='ident'>operation</span>.<span class='ident'>allows</span>(<span class='kw-2'>&amp;</span><span class='macro'>version</span><span class='macro'>!</span>(<span class='number'>1</span>, <span class='number'>5</span>, <span class='number'>6</span>)) {
