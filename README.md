@@ -30,7 +30,7 @@ Installation
 
 Add it to your list of dependencies.
 
-    "recital" = "0.2.0"
+    "recital" = "0.3.0"
 
 License
 -------
