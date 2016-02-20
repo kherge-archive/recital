@@ -5,7 +5,7 @@
 //! the option of using the structs and enums directly
 //!
 //! ```
-//! use recital::{Identifier, Version};
+//! use recital::version::{Identifier, Version};
 //!
 //! let version = Version {
 //!     major: 1,
@@ -29,7 +29,7 @@
 //!                        vec![id!("def"), id!(789)]);
 //! # }
 //! ```
-use Identifier::{Alpha, Number};
+use self::Identifier::{Alpha, Number};
 use std::cmp::Ordering;
 use std::fmt::{self, Display};
 
@@ -125,13 +125,14 @@ from_n!(u64);
 /// is the same as
 ///
 /// ```
-/// # use recital::Identifier;
+/// use recital::version::Identifier;
+///
 /// let a = Identifier::Alpha("abc".to_string());
 /// let b = Identifier::Number(123);
 /// ```
 #[macro_export]
 macro_rules! id {
-    ($a:expr) => {{ $crate::Identifier::from($a) }}
+    ($a:expr) => {{ $crate::version::Identifier::from($a) }}
 }
 
 /// Represents a semantic version number.
@@ -187,7 +188,8 @@ pub struct Version {
 /// Sets the default values for a `Version`.
 ///
 /// ```
-/// # use recital::version::Version;
+/// use recital::version::Version;
+///
 /// let defaults = Version {
 ///     major: 0,
 ///     minor: 0,
@@ -368,7 +370,8 @@ impl Version {
 /// ```
 /// # #[macro_use]
 /// # extern crate recital;
-/// # use recital::Version;
+/// use recital::version::Version;
+///
 /// # fn main() {
 /// let a = Version {
 ///     major: 1,
@@ -398,7 +401,7 @@ impl Version {
 macro_rules! version {
     ($a:expr, $b:expr, $c:expr) => {
         {
-            $crate::Version {
+            $crate::version::Version {
                 major: $a,
                 minor: $b,
                 patch: $c,
@@ -410,7 +413,7 @@ macro_rules! version {
 
     ($a:expr, $b:expr, $c:expr, $d:expr) => {
         {
-            $crate::Version {
+            $crate::version::Version {
                 major: $a,
                 minor: $b,
                 patch: $c,
@@ -423,7 +426,7 @@ macro_rules! version {
 
     ($a:expr, $b:expr, $c:expr, $d:expr, $e:expr) => {
         {
-            $crate::Version {
+            $crate::version::Version {
                 major: $a,
                 minor: $b,
                 patch: $c,

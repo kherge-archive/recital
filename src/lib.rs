@@ -25,7 +25,8 @@
 //! ```
 //! #[macro_use]
 //! extern crate recital;
-//! use recital::Version;
+//!
+//! use recital::prelude::*;
 //! # fn main() {
 //! # }
 //! ```
@@ -45,7 +46,7 @@
 //! ### Parsing
 //!
 //! ```
-//! # use recital::Version;
+//! # use recital::version::Version;
 //! let version: Version = "1.2.3-abc.456+def.789".parse().unwrap();
 //! ```
 //!
@@ -54,7 +55,7 @@
 //! ```
 //! # #[macro_use]
 //! # extern crate recital;
-//! # use recital::Version;
+//! # use recital::version::Version;
 //! # fn main() {
 //! // `0.0.0`
 //! let mut version = Version::new();
@@ -82,7 +83,7 @@
 //! You can compare versions like you would any number.
 //!
 //! ```
-//! # use recital::Version;
+//! # use recital::version::Version;
 //! let a: Version = "1.2.3-alpha".parse().unwrap();
 //! let b: Version = "1.2.3".parse().unwrap();
 //!
@@ -94,13 +95,19 @@
 #[macro_use]
 extern crate nom;
 
-pub use resolve::*;
-pub use version::*;
-
+// Version number management.
 #[macro_use]
 pub mod version;
 
+// Version string parser.
 mod parser;
 
+/// Re-exports submodules for glob imports.
+pub mod prelude {
+    pub use resolve::{Constraint, Constraints, Operation, resolve};
+    pub use version::{Identifier, Version};
+}
+
+// Version constraints management.
 #[macro_use]
 pub mod resolve;

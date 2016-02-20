@@ -9,8 +9,9 @@
 //! ```
 //! # #[macro_use]
 //! # extern crate recital;
-//! # use recital::Constraint;
-//! # use recital::Operation::*;
+//! use recital::resolve::Constraint;
+//! use recital::resolve::Operation::GreaterThan;
+//!
 //! # fn main() {
 //! if GreaterThan(version!(1, 0, 0)).allows(&version!(1, 0, 0)) {
 //!     // ... allowed ...
@@ -23,9 +24,10 @@
 //! ```
 //! # #[macro_use]
 //! # extern crate recital;
-//! # use recital::Constraint;
-//! # use recital::Operation::*;
-//! # use recital::resolve;
+//! use recital::resolve::Constraint;
+//! use recital::resolve::Operation::*;
+//! use recital::resolve::resolve;
+//!
 //! # fn main() {
 //! let constraints = constraints!(Or,
 //!                                constraints!(And,
@@ -50,7 +52,7 @@
 //! ```
 //!
 //! As you can probably tell, the macros make this easy and concise.
-use super::Version;
+use super::version::Version;
 
 /// Defines how a constraint must be implemented.
 pub trait Constraint {
@@ -67,9 +69,9 @@ pub trait Constraint {
 /// ```
 /// # #[macro_use]
 /// # extern crate recital;
-/// use recital::Constraint;
-/// use recital::Constraints::*;
-/// use recital::Operation::*;
+/// use recital::resolve::Constraint;
+/// use recital::resolve::Constraints::And;
+/// use recital::resolve::Operation::*;
 ///
 /// # fn main() {
 /// let set = And(vec![Box::new(GreaterThanOrEqualTo(version!(1, 0, 0))),
@@ -124,8 +126,9 @@ impl Constraint for Constraints {
 /// ```
 /// # #[macro_use]
 /// # extern crate recital;
-/// # use recital::Constraints::*;
-/// # use recital::Operation::*;
+/// use recital::resolve::Constraints::And;
+/// use recital::resolve::Operation::Exactly;
+///
 /// # fn main() {
 /// let constraints = constraints!(And,
 ///                                Exactly(version!(1, 2, 3)),
@@ -138,8 +141,9 @@ impl Constraint for Constraints {
 /// ```
 /// # #[macro_use]
 /// # extern crate recital;
-/// # use recital::Constraints::*;
-/// # use recital::Operation::*;
+/// use recital::resolve::Constraints::And;
+/// use recital::resolve::Operation::Exactly;
+///
 /// # fn main() {
 /// let constraints = And(vec![Box::new(Exactly(version!(1, 2, 3))),
 ///                            Box::new(Exactly(version!(4, 5, 6)))]);
@@ -149,13 +153,13 @@ impl Constraint for Constraints {
 macro_rules! constraints {
     ($a:ident, $($b:expr), *) => {
         {
-            let mut constraints = Vec::<Box<$crate::Constraint>>::new();
+            let mut constraints = Vec::<Box<$crate::resolve::Constraint>>::new();
 
             $(
                 constraints.push(Box::new($b));
             )*
 
-            $crate::Constraints::$a(constraints)
+            $crate::resolve::Constraints::$a(constraints)
         }
     }
 }
@@ -169,8 +173,9 @@ macro_rules! constraints {
 /// ```
 /// # #[macro_use]
 /// # extern crate recital;
-/// use recital::Constraint;
-/// use recital::Operation::*;
+/// use recital::resolve::Constraint;
+/// use recital::resolve::Operation::GreaterThanOrEqualTo;
+///
 /// # fn main() {
 /// let operation = GreaterThanOrEqualTo(version!(1, 3, 9));
 ///
@@ -229,9 +234,10 @@ impl Constraint for Operation {
 /// ```
 /// # #[macro_use]
 /// # extern crate recital;
-/// # use recital::Constraints::*;
-/// # use recital::Operation::*;
-/// # use recital::resolve;
+/// use recital::resolve::Constraints::And;
+/// use recital::resolve::Operation::*;
+/// use recital::resolve::resolve;
+///
 /// # fn main() {
 /// let constraints = constraints!(And,
 ///                                GreaterThan(version!(1, 0, 1)),

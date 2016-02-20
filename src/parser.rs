@@ -1,6 +1,6 @@
 use nom::{digit, IResult};
 use std::str;
-use super::*;
+use super::version::{Identifier, Version};
 
 /// Checks if a given character is part of a valid identifier.
 ///
@@ -140,7 +140,7 @@ mod test {
     use nom::IResult;
     use super::{build, extensions, identifiers, is_id_char, next_number,
                 number, parse_ids, prerelease, version};
-    use super::super::*;
+    use super::super::version::Version;
 
     macro_rules! parsed {
         ($a:expr) => {
