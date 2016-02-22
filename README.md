@@ -13,6 +13,8 @@ Usage
 #[macro_use]
 extern crate recital;
 
+use recital::prelude::*;
+
 fn main() {
     let installed: Version = "1.0.0-beta".parse();
     let published: Version = "1.3.4".parse();
