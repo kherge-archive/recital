@@ -29,7 +29,6 @@
 //!                        vec![id!("def"), id!(789)]);
 //! # }
 //! ```
-use self::Identifier::{Alpha, Number};
 use std::cmp::Ordering;
 use std::fmt::{self, Display};
 
