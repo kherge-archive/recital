@@ -122,7 +122,7 @@ impl str::FromStr for Version {
     fn from_str(s: &str) -> Result<Version, String> {
         match version(s.as_bytes()) {
             IResult::Done(remainder, version) => {
-                if 0 == remainder.len() {
+                if remainder.is_empty() {
                     return Ok(version);
                 }
             }
