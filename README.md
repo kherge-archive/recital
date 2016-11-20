@@ -37,5 +37,5 @@ Add it to your list of dependencies.
 License
 -------
 
-Released under the MIT license.
+Released under the MIT license and Apache 2.0 license.
 
