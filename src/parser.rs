@@ -93,12 +93,12 @@ named!(
 #[allow(dead_code)]
 named!(
     version<&[u8], Version>,
-    chain!(
-        major: number ~
-        minor: next_number ~
-        patch: next_number ~
-        extensions: extensions,
-        || {
+    do_parse!(
+           major:      number
+        >> minor:      next_number
+        >> patch:      next_number
+        >> extensions: extensions
+        >> (
             Version {
                 major: major,
                 minor: minor,
@@ -106,7 +106,7 @@ named!(
                 pre: extensions.0.clone().unwrap_or(Vec::new()),
                 build: extensions.1.clone().unwrap_or(Vec::new()),
             }
-        }
+        )
     )
 );
 
